@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+  	<title>Customers</title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  	<link rel="stylesheet" href="css/styles.css">
+    	<link rel="icon" href="src/favicon.ico">
+  	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <section id="title">
+ <nav class="navbar navbar-expand-lg navbar-lightblue bg-light ">
+	    <a class="navbar-brand" href="/">Peace Bank</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+	         <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/customerlist">View Customers</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/history">Transanctions</a>
+          </li>
+        </ul>
+	    </div>
+	</nav>
+  <div class="container">
+    <h1 class="text-center pt-4" style="color:#6495ED;">TRANSACTION</h1>
+  <div class="row">
+    <%
+      if(message){
+      %>
+    <div class="alert alert-info" role="alert">
+      <%= message %>
+    </div>
+    <% } %>
+    <div class="col-sm">
+      <table class="table table-hover table-sm table-striped table-condensed table-bordered">
+                         <thead style="background-color:lightblue">
+                             <tr>
+                             <th scope="col" class="text-center py-2">CUSTOMER-ID</th>
+                             <th scope="col" class="text-center py-2">NAME</th>
+                             <th scope="col" class="text-center py-2">E-MAIL</th>
+                             <th scope="col" class="text-center py-2">BALANCE</th>
+
+                             </tr>
+                         </thead>
+                         <tbody>
+                           <%
+                             if(customers.length!=0){
+                             var i=1;
+                             customers.forEach(function(data){
+                             %>
+                             <tr>
+
+                                 <td><%=data.Id %></td>
+                                 <td><%=data.Name %></td>
+                                 <td><%=data.Email %></td>
+                                 <td><%=data.Amount %></td>
+
+
+
+                             </tr>
+                             <%  i++; }) %>
+                             <% } else{ %>
+                                 <tr>
+                                     <td colspan="7">No Data Found</td>
+                                 </tr>
+                           <% } %>
+                         </tbody>
+                     </table>
+
+    </div>
+    </div>
+</div>
+<br><br>
+
+
+
+<!-- <form class="form-horizontal" action="/process" method="post", role="form">
+  <label>Transfer To:</label>
+      <select name="to" class="form-control" required>
+
+        <%
+          if(toBeSelected.length!=0){
+
+          toBeSelected.forEach(function(data){
+          %>
+          <option value="<%= data.Id %>" label="<%= data.Name %>" ></option>
+          <% }) %>
+          <% } %>
+
+    </option>
+    </select>
+
+    <br><br>
+
+    <label>Amount:</label>
+      <input type="number" class="form-control" name="amount" required>
+    <br><br>
+
+    <div class="text-center" >
+      <input type="button" class="btn btn-primary" value="Confirm To Process" />
+    </div>
+  </form> -->
+
+  <form method="post" action="/process">
+    <label>Transfer To:</label>
+        <select name="to" class="form-control" required >
+
+          <%
+            if(toBeSelected.length!=0){
+
+            toBeSelected.forEach(function(data){
+            %>
+            <option value="<%= data.Id %>" label="<%= data.Name %>" ></option>
+            <% }) %>
+            <% } %>
+
+
+      </select>
+
+      <br/>
+      <label>Amount:</label>
+        <input type="number" class="form-control" name="amount" required>
+      <div class="text-center" >
+        <input type="submit" value="Submit" class="btn btn-primary">
+      </div>
+  </form>
+
+  <footer class="text-center mt-5 py-2" style="background: #BDBFFA; color: black;">
+    <p>&copy 2021. Designed by <b>Sachin Navik</b> <br> The Sparks Foundation</p>
+  </footer>
+  </body>
+</html>
